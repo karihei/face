@@ -1,10 +1,10 @@
 function resizeCanvas(image, canvas) {
-    document.body.appendChild(image);
+ //   document.body.appendChild(image);
     canvas.width = image.offsetWidth;
     canvas.style.width = image.offsetWidth.toString() + "px";
     canvas.height = image.offsetHeight;
     canvas.style.height = image.offsetHeight.toString() + "px";
-    document.body.removeChild(image);
+    //document.body.removeChild(image);
 }
 
 function showMsg(msg) {
@@ -25,7 +25,6 @@ takePicture.onchange = function (event) {
         img.onload = handleOnload;
 
         img.src = url;
-        //URL.revokeObjectURL(url);
     }
 };
 
@@ -40,7 +39,9 @@ function handleOnload() {
         "interval": 5,
         "min_neighbors": 1
     });
-
+    var el = document.createElement("img");
+    el.id = 'face-source';
+    document.body.appendChild(el);
     if (comp.length === 0 ){
         showMsg("検出できませんでした。まともな顔で出直してください！");
     } else {
@@ -54,9 +55,9 @@ function handleOnload() {
     ctx.font = "bold 20pt Arial";
     ctx.fillStyle = "#ff0";
     for (var i = 0; i < comp.length; i++) {
-        var score = Math.abs(Math.floor(comp[i].confidence * 100000));
+        var score = Math.abs(Math.floor(comp[i].confidence * 1000));
         ctx.strokeRect(comp[i].x, comp[i].y, comp[i].width, comp[i].height);
         ctx.fillText(score + '点', comp[i].x, comp[i].y + comp[i].height + 25);
     }
 }
-// 画像が読み込まれるのを待ってから処理を続行
+
