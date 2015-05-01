@@ -54,7 +54,7 @@ function handleOnload() {
     ctx.font = "bold 20pt Arial";
     ctx.fillStyle = "#ff0";
     for (var i = 0; i < comp.length; i++) {
-        var score = Math.floor(comp[i].confidence * 100000);
+        var score = Math.abs(Math.floor(comp[i].confidence * 100000));
         ctx.strokeRect(comp[i].x, comp[i].y, comp[i].width, comp[i].height);
         ctx.fillText(score + '点', comp[i].x, comp[i].y + comp[i].height + 25);
     }
