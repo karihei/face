@@ -31,8 +31,6 @@ takePicture.onchange = function (event) {
 
 function handleOnload() {
     resizeCanvas(img, canvas);
-
-    var s = (new Date()).getTime();
     showMsg("顔検出中・・・");
 
     // 顔検出
@@ -43,14 +41,22 @@ function handleOnload() {
         "min_neighbors": 1
     });
 
-    showMsg("Elapsed time : " + ((new Date()).getTime() - s).toString() + "ms");
+    if (comp.length === 0 ){
+        showMsg("検出できませんでした。まともな顔で出直してください！");
+    } else {
+        showMsg("どう？");
+    }
 
     // 結果の表示
     ctx.drawImage(img, 0, 0);
     ctx.lineWidth = 3;
     ctx.strokeStyle = "#f00";
+    ctx.font = "bold 20pt Arial";
+    ctx.fillStyle = "#ff0";
     for (var i = 0; i < comp.length; i++) {
+        var score = Math.floor(comp[i].confidence * 100000);
         ctx.strokeRect(comp[i].x, comp[i].y, comp[i].width, comp[i].height);
+        ctx.fillText(score + '点', comp[i].x, comp[i].y + comp[i].height + 25);
     }
 }
 // 画像が読み込まれるのを待ってから処理を続行
