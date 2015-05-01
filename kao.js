@@ -19,6 +19,7 @@ var takePicture = document.querySelector("#take-picture");
 takePicture.onchange = function (event) {
     var files = event.target.files;
     if (files && files.length === 1) {
+        showMsg("顔検出中・・・");
         var url = URL.createObjectURL(files[0]);
         img = document.getElementById('face-source');
         img.onload = handleOnload;
@@ -31,7 +32,6 @@ takePicture.onchange = function (event) {
 
 function handleOnload() {
     resizeCanvas(img, canvas);
-    showMsg("顔検出中・・・");
 
     // 顔検出
     var comp = ccv.detect_objects({

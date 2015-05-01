@@ -10,3 +10,8 @@
 input#take-picture {
     padding: 20px;
 }
+
+#msg {
+    font-size: 23px;
+    padding:20px;
+}
